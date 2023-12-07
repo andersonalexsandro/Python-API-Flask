@@ -4,5 +4,5 @@
   <p>$ pip install Flask</p>
   <p>$ pip install -U Flask-SQLAlchemy</p>
 </div>
-<p> -and then, go to app/__init__.py click run and type this URL: http://localhost:5000</p>
+<p> -and then, go to app/__init__.py click run and in your browser type this URL: http://localhost:5000</p>
 
