@@ -8,6 +8,39 @@
     <title>Users</title>
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/user/form"> Create User</a> </li>
+            </ul>
+        </nav>
+    </header>
     <h1>All Users!</h1>
+
+    <Ul>
+        {% for user in users %}
+            <li>
+                <a href="/user/{{user.id}}">{{user.name}}</a>
+                <form id="{{user.id}}" class="delete-form">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </Ul>
 </body>
 </html>
+
+<script>
+    document.addEventListener("submit", (e) => {
+        if (e.target.classList.contains("delete-form")) {
+            e.preventDefault();
+            const id = e.target.id;
+            fetch(`/user/${id}`, {
+                method: "DELETE"
+            }).then(() => {
+                window.location.href = "/user/";
+            });
+        }
+    });
+</script>
