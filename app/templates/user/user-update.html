@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+     <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/user/">Users</a></li>
+                <li><a href="/user/form">Create User</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <form id="{{user.id}}" class="update-form">
+        <div>
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="name"  placeholder="Enter Your Name" value="{{user.name}}">
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="Email" id="email" name="email"  placeholder="Enter Your Email" value="{{user.email}}">
+        </div>
+
+        <button type="submit">Edit</button>
+    </form>
+</body>
+
+</html>
+
+<style>
+
+    form{
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+        text-align: center;
+        flex-wrap: wrap;
+        margin-top: 50px;
+    }
+
+    form button{
+        margin: 0 auto;
+        display: block;
+        width: 75px;
+    }
+
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0px;
+    }
+
+    header{
+        background-color: #002c9e;
+        padding: 25px;
+    }
+
+    header ul{
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+    }
+
+    header ul li{
+        margin: 0px 15px;
+    }
+
+    header ul li a{
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-family: Carlito, sans-serif;
+        color: gainsboro;
+    }
+
+    header ul li a:hover{
+        color: white;
+        text-decoration: underline;
+    }
+</style>
+
+<script>
+    document.addEventListener("submit", (e) => {
+    if (e.target.classList.contains("update-form")) {
+        e.preventDefault();
+        const id = e.target.id;
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("email", email);
+
+        fetch(`/user/${id}`, {
+            method: "PUT",
+            body: formData,
+        }).then(() => {
+            window.location.href = `/user/${id}`;
+        });
+    }
+});
+</script>

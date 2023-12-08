@@ -22,19 +22,24 @@
         </nav>
     </header>
     <h1>Users</h1>
-
-    <Ul>
-        {% for user in users %}
-            <li>
-                <div>
+    <div class="content">
+        <Ul>
+            {% for user in users %}
+                <li>
                     <a href="/user/{{user.id}}">{{user.name}}</a>
-                    <form id="{{user.id}}" class="delete-form">
-                        <button type="submit">Delete</button>
-                    </form>
-                </div>
-            </li>
-        {% endfor %}
-    </Ul>
+                    <div>
+                        <form action="/user/update/{{user.id}}" method="get">
+                            <button type="submit">Edit</button>
+                        </form>
+                        <form id="{{user.id}}" class="delete-form">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </Ul>
+    </div>
+
 </body>
 </html>
 
@@ -52,18 +57,21 @@
         border: 0px;
     }
 
-    li{
+    .content li{
         list-style: none;
         margin: 10px auto;
         max-width: 600px;
-    }
-
-    li div{
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 30px;
         background: #f1f1f1;
+    }
+
+    .content div{
+        display: flex;
+        gap: 10px;
+        align-items: center;
     }
 
     li div a{
@@ -142,4 +150,5 @@
             });
         }
     });
+    
 </script>

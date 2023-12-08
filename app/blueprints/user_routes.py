@@ -11,6 +11,11 @@ bp = Blueprint("user", __name__)
 def form():
     return render_template("user/form.html")
 
+@bp.route("/user/update/<int:id>", methods=["GET"])
+def update(id):
+    user = User_Model.query.get(id)
+    return render_template("user/user-update.html", user=user)
+
 
 @bp.route("/user/", methods=["POST"])
 def save():
@@ -18,6 +23,15 @@ def save():
     db.session.add(new_user)
     db.session.commit()
     return redirect(url_for("user.index"))
+
+
+@bp.route("/user/<int:id>", methods=["PUT"])
+def user_update(id):
+    user = User_Model.query.get(id)
+    user.name = request.form["name"]
+    user.email = request.form["email"]
+    db.session.commit()
+    return render_template("user/user.html", user=user)
 
 
 @bp.route("/user/", methods=["GET"])
@@ -29,13 +43,13 @@ def index():
 @bp.route("/user/<int:id>", methods=["GET"])
 def user_id(id):
     user = User_Model.query.get(id)
-    return render_template("user/user-id.html", user=user)
+    return render_template("user/user.html", user=user)
 
 
 @bp.route("/user/<string:name>", methods=["GET"])
 def user_name(name):
     user = db.one_or_404(db.select(User_Model).filter_by(name=name))
-    return render_template("user/user-id.html", user=user)
+    return render_template("user/user.html", user=user)
 
 
 @bp.route("/user/<int:id>", methods=["DELETE"])
