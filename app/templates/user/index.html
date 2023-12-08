@@ -10,21 +10,28 @@
 <body>
     <header>
         <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/user/form"> Create User</a> </li>
-            </ul>
+            <div>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/user/form">Create User</a></li>
+                </ul>
+            </div>
+            <form>
+                <input id="search" type="text" placeholder="Search user by name">
+            </form>
         </nav>
     </header>
-    <h1>All Users!</h1>
+    <h1>Users</h1>
 
     <Ul>
         {% for user in users %}
             <li>
-                <a href="/user/{{user.id}}">{{user.name}}</a>
-                <form id="{{user.id}}" class="delete-form">
-                    <button type="submit">Delete</button>
-                </form>
+                <div>
+                    <a href="/user/{{user.id}}">{{user.name}}</a>
+                    <form id="{{user.id}}" class="delete-form">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
             </li>
         {% endfor %}
     </Ul>
@@ -32,6 +39,45 @@
 </html>
 
 <style>
+
+    nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    nav input{
+        padding: 5px;
+        border-radius: 5px;
+        border: 0px;
+    }
+
+    li{
+        list-style: none;
+        margin: 10px auto;
+        max-width: 600px;
+    }
+
+    li div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px;
+        background: #f1f1f1;
+    }
+
+    li div a{
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-family: Carlito, sans-serif;
+        color: #002c9e;
+    }
+
+    li div a:hover{
+        color: #002c9e;
+        text-decoration: underline;
+    }
+
     body{
         font-family: Arial, Helvetica, sans-serif;
         margin: 0px;
@@ -81,6 +127,18 @@
                 method: "DELETE"
             }).then(() => {
                 window.location.href = "/user/";
+            });
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && e.target.id === "search") {
+            e.preventDefault();
+            const searchTerm = document.getElementById("search").value;
+            fetch(`/user/${searchTerm}`, {
+                method: "GET"
+            }).then(() => {
+                window.location.href = `/user/${searchTerm}`;
             });
         }
     });

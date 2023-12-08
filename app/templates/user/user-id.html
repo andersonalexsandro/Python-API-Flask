@@ -18,21 +18,42 @@
             </ul>
         </nav>
     </header>
+    <div class="page-contet">
+        <h1> {{user.name}}</h1>
+        <ul>
+            <li>Name: {{user.name}}</li>
+            <li>Email: {{user.email}}</li>
+        </ul>
+    </div>
 
-    <h1>Showing User with id {{user_id}}</h1>
 </body>
 </html>
 
 <style>
+
+    .page-contet ul{
+        padding: 50px;
+        background: gainsboro;
+        max-width: 600px;
+        margin: 0 auto;
+        border-radius: 5px;
+    }
+
+    .page-contet ul li{
+        list-style: none;
+        font-size: 1.4rem;
+        margin: 10px 0px;
+    }
+
     h1{
         text-align: center;
         margin-top: 100px;
+        font-size: 3rem;
     }
 
     body{
         font-family: Arial, Helvetica, sans-serif;
         margin: 0px;
-        font-size: 2rem;
     }
 
     header{
